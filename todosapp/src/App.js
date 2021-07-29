@@ -22,7 +22,7 @@ function App() {
 
   const addtodo = ( title , desc)=>{
     let sno = todos[todos.length-1].sno +1 ;
-    const mytodo = {
+    let mytodo = {
       sno : sno, 
       title : title,
       desc : desc,
