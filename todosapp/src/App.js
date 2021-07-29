@@ -37,7 +37,7 @@ function App() {
   };
 
   const addTodo = (title, desc) => {
-    console.log("im adding ", title, desc);
+    
     let sno;
     if (todos.length === 0) {
       sno = 0;
@@ -46,12 +46,12 @@ function App() {
     }
 
     const myTodo = {
-      sno : sno,
+      sno: sno,
       title: title,
       desc: desc,
     };
     settodos([...todos, myTodo]);
-    console.log(myTodo);
+   
   };
 
   const [todos, settodos] = useState([initTodo]);
