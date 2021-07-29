@@ -22,7 +22,7 @@ import {
 function App() {
   let initTodo;
   if (localStorage.getItem("todos") === null) {
-    initTodo = [];
+    initTodo = [''];
   } else {
     initTodo = JSON.parse(localStorage.getItem("todos"));
   }
