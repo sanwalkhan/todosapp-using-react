@@ -37,7 +37,6 @@ function App() {
   };
 
   const addTodo = (title, desc) => {
-    
     let sno;
     if (todos.length === 0) {
       sno = 0;
@@ -46,7 +45,7 @@ function App() {
     }
 
     const myTodo = {
-      sno: sno,
+      sno : sno,
       title: title,
       desc: desc,
     };
@@ -69,7 +68,7 @@ function App() {
             return(
             <>
              <Addtodo addTodo={addTodo} /> 
-      <Todos todos={todos} onDelete={onDelete} />
+             <Todos todos={todos} onDelete={onDelete} />
             </>
             )
           }}>
@@ -77,12 +76,7 @@ function App() {
           <Route exact path="/about">
             <About />
           </Route>
-          
         </Switch>
-
-
-     
-
       <Footer />
       </Router>
     </>
