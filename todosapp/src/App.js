@@ -1,70 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 
-import './App.css';
+import "./App.css";
 
-import { Header } from './components/Header';
+import { Header } from "./components/Header";
 
-import { Todos } from './components/Todos';
+import { Todos } from "./components/Todos";
 
-import { Footer } from './components/footer';
+import { Footer } from "./components/footer";
 
-import { Addtodo } from './components/Addtodo';
+import { Addtodo } from "./components/Addtodo";
 
+import { About } from "./components/About";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 
 function App() {
-
-  const onDelete = (todo) =>{
-    settodos(todos.filter((e)=>{
-      return e!== todo
-    }))
+  let initTodo;
+  if (localStorage.getItem("todos") === null) {
+    initTodo = [];
+  } else {
+    initTodo = JSON.parse(localStorage.getItem("todos"));
   }
 
-  const addTodo = (title,desc)=>{
-    console.log("im adding " , title , desc)
-      let sno = todos[todos.length-1].sno + 1 ;
-       const myTodo = {
-         sno: sno, 
-         title : title,
-         desc : desc,
-       }
+  const onDelete = (todo) => {
+    settodos(
+      todos.filter((e) => {
+        return e !== todo;
+      })
+    );
+    localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
+  const addTodo = (title, desc) => {
+    console.log("im adding ", title, desc);
+    let sno;
+    if (todos.length === 0) {
+      sno = 0;
+    } else {
+      sno = todos[todos.length - 1].sno + 1;
+    }
+
+    const myTodo = {
+      sno : sno,
+      title: title,
+      desc: desc,
+    };
     settodos([...todos, myTodo]);
-       console.log(myTodo)
-  }
+    console.log(myTodo);
+  };
 
-const [todos, settodos] = useState(
-  [
-    {
-      sno: 1,
-      title: "Buy Phone",
-      desc: 'Apple Phone Phone from markets Apple Store'
-  },
-  {
-      sno: 2,
-      title: "Fuel",
-      desc: 'Go to the Fuel Station'
-  }
-  ,
-  {
-      sno: 3,
-      title: "Grocerry",
-      desc: 'Go to the market and buy  Grocery'
-  }
-  ]
-)
- 
+  const [todos, settodos] = useState([initTodo]);
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   return (
     <>
-  <Header title = {'TODO LIST'}  searchbar = {false}/>
+    <Router>
+      <Header title={"TODO LIST"} searchbar={false} />
 
-  <Addtodo addTodo = {addTodo}/>
+      <Switch>
+          <Route exact path="/" render={()=>{
+            return(
+            <>
+             <Addtodo addTodo={addTodo} /> 
+      <Todos todos={todos} onDelete={onDelete} />
+            </>
+            )
+          }}>
+            </Route>
+          <Route exact path="/about">
+            <About />
+          </Route>
+          
+        </Switch>
 
-  <Todos todos = {todos}  onDelete = {onDelete}/>
 
+     
 
-  <Footer />
+      <Footer />
+      </Router>
     </>
-  )
+  );
 }
 
 export default App;

@@ -8,13 +8,18 @@ export const Addtodo = (props) => {
         if(!title || !desc){ 
         alert ("Title or Desription can't be Empty")
         }
-        props.addTodo(title,desc)
+        else {
+        props.addTodo(title,desc);
+
+        setTitle('');
+        setDesc('');
+        } 
   }
   return (
     <div className="container ">
         <h3 className="text-center">Add Your Task</h3>
       <form onSubmit ={submit} >
-        <div className="mb-3">
+        <div className="mb-3 ">
           <label htmlFor="title" className="form-label">
             Task Title
           </label>
