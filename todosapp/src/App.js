@@ -37,15 +37,15 @@ function App() {
   };
 
   const addTodo = (title, desc) => {
-    let sno;
+    let i;
     if (todos.length === 0) {
-      sno = 0;
+      i = 0;
     } else {
-      sno = todos[todos.length - 1].sno + 1;
+      i = todos[todos.length - 1].i + 1;
     }
 
     const myTodo = {
-      sno : sno,
+      i : i,
       title: title,
       desc: desc,
     };
